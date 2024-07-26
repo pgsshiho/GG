@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor.Audio;
 
 public class Mainmenu : MonoBehaviour
 {
@@ -13,6 +11,9 @@ public class Mainmenu : MonoBehaviour
     public GameObject quit;
     public GameObject panel;
     public GameObject Return;
+    public GameObject con;
+    public GameObject X;
+    public GameObject cont;
     public Slider volumeSlider;
     public AudioClip clip;
     private AudioSource audioSource;
@@ -27,7 +28,7 @@ public class Mainmenu : MonoBehaviour
         audioSource.Play();
 
         // 슬라이더 값에 대한 초기 볼륨 설정
-        volumeSlider.value = audioSource.volume;
+        volumeSlider.value = PlayerPrefs.GetFloat("Volume", audioSource.volume);
 
         // 슬라이더 값 변경에 따른 이벤트 핸들러 등록
         volumeSlider.onValueChanged.AddListener(SetVolume);
@@ -62,5 +63,16 @@ public class Mainmenu : MonoBehaviour
     public void SetVolume(float volume)
     {
         audioSource.volume = volume;
+        PlayerPrefs.SetFloat("Volume", volume);
+    }
+
+    public void control()
+    {
+        con.SetActive(true);
+    }
+
+    public void dprtm()
+    {
+        con.SetActive(false);
     }
 }

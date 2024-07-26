@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEditor.Audio;
 
-public class Mainmenu : MonoBehaviour
+public class stage : MonoBehaviour
 {
-    public GameObject start;
-    public GameObject Option;
-    public GameObject quit;
-    public GameObject panel;
-    public GameObject Return;
-    public Slider volumeSlider;
     public AudioClip clip;
     private AudioSource audioSource;
-
+    public GameObject quit;
+    public GameObject panel;
+    public Slider volumeSlider;
+    public GameObject Return;
+    public int a = 0;
+    public GameObject Panel;
+    Mainmenu main;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,29 +36,33 @@ public class Mainmenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyUp(KeyCode.Escape) && a==0)
+        {
+            panel.SetActive(true);
+            Time.timeScale = 0;
+            Panel.SetActive(true);
+            a++;
+        }
+        else if(Input.GetKeyUp(KeyCode.Escape) && a == 1)
+        {
+            panel.SetActive(false);
+            Time.timeScale = 1;
+            a--;
+            Panel.SetActive(false);
+        }
     }
-
-    public void StArt()
-    {
-        SceneManager.LoadScene("Stage");
-    }
-
-    public void OpTion()
-    {
-        panel.SetActive(true);
-    }
-
-    public void QuIt()
-    {
-        Application.Quit();
-    }
-
     public void Re()
     {
         panel.SetActive(false);
+        Time.timeScale = 1.0f;
+        a--;
+        Panel.SetActive(false);
     }
-
+    public void qu()
+    {
+        SceneManager.LoadScene("Mainmenu");
+        Time.timeScale = 1.0f;
+    }
     public void SetVolume(float volume)
     {
         audioSource.volume = volume;
